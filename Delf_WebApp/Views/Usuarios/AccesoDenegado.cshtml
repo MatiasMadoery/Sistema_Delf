@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Acceso Denegado";
+}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center bg-warning text-dark">
+                    <h2>Acceso Denegado</h2>
+                </div>
+                <div class="card-body text-center">
+                    <p class="text-danger">No tienes permiso para acceder a esta página.</p>
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-primary mt-3">Volver a la Página Principal</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

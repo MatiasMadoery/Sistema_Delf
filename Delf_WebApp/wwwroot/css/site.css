@@ -1,22 +1,123 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 110px;
+}
+
+.articulo-select {
+    width: 300px;
+}
+
+.navbar {
+    background-color: #0d0d0d;
+}
+
+.navbar-brand, .nav-link {
+    color: #ffffff !important;
+}
+
+.footer {
+    background-color: #0d0d0d;
+    color: #ffffff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+    .footer .container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 10px;
+    }
+
+    .footer p {
+        margin: 5px 0;
+        font-size: 14px;
+    }
+
+    .footer a {
+        color: #ffa500;
+        text-decoration: none;
+        margin: 0 5px;
+    }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+    .footer i {
+        margin-right: 5px;
+    }
+
+    .footer h5 {
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+
+.container {
+    max-width: 1200px;
+}
+
+.card-custom {
+    margin-top: 2rem;
+    padding: 2rem;
+    border: 1px solid #dee2e6;
+    border-radius: .5rem;
+}
+
+.banner {
+    max-width: 100%;
+    height: auto;
+}
+
+.contact-section {
+    background-color: #f8f9fa;
+    padding: 2rem 0;
+}
+
+    .contact-section h2, .contact-section h5 {
+        color: #343a40;
+    }
+
+    .contact-section p {
+        color: #343a40;
+    }
+
+    .contact-section a {
+        color: #343a40;
+    }
+
+.contact-icon {
+    width: 24px;
+    height: auto;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.social-icon {
+    width: 32px;
+    height: auto;
+}
+
+.icono-secion {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 5px;
 }

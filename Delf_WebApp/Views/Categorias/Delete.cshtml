@@ -1,0 +1,26 @@
+﻿@model Delf_WebApp.Models.Categoria
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Eliminar Categoría</h1>
+<div>
+    <h4>Categoría</h4>
+    <hr />
+    <br />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+    </dl>
+    <br />
+    <form asp-action="Delete" class="mt-3">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+    </form>
+</div>

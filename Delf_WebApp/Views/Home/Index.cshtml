@@ -1,8 +1,100 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "DELF";
 }
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<img src="~/img/imagesPage/fondo.jpg" alt="Logo" class="banner" />
+
+<hr />
+<div class="container mt-5">
+    <h2 class="text-center">FILTROS COMPETICON</h2>
+    <br />
+    <div class="row">
+        <!-- Tarjeta de producto 1 -->
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="card mb-4 shadow-sm">
+                <img src="~/img/imagesPage/FilRecto.jpg" class="card-img-top" alt="Producto 1">
+                <div class="card-body">
+                    <h5 class="card-title">Filtro recto</h5>
+                    <p class="card-text"><strong>$1499.00</strong></p>
+                </div>
+            </div>
+        </div>
+        <!-- Tarjeta de producto 2 -->
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="card mb-4 shadow-sm">
+                <img src="~/img/imagesPage/FilFlap.jpg" class="card-img-top" alt="Producto 2">
+                <div class="card-body">
+                    <h5 class="card-title">Filtro flap</h5>
+                    <p class="card-text"><strong>$1200.00</strong></p>
+                </div>
+            </div>
+        </div>
+        <!-- Tarjeta de producto 3 -->
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="card mb-4 shadow-sm">
+                <img src="~/img/imagesPage/FilAnker.jpg" class="card-img-top" alt="Producto 3">
+                <div class="card-body">
+                    <h5 class="card-title">Filtro Tornado</h5>
+                    <p class="card-text"><strong>$6000.00</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<div class="container mt-5">
+    <h2 class="text-center">FILTROS TIPO ORIGINAL</h2>
+    <br />
+    <div class="row">
+        <br />
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="card mb-4 shadow-sm h-100">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Filtro Crypton</h5>
+                    <img src="~/img/imagesPage/FilCrypton (2).jpg" class="card-img-top" alt="Producto 4">
+                    <p class="card-text mt-auto"><strong>$800.00</strong></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="card mb-4 shadow-sm h-100">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Filtro Smash</h5>
+                    <img src="~/img/imagesPage/FilSmash.jpg" class="card-img-top" alt="Producto 4">
+                    <p class="card-text mt-auto"><strong>$800.00</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr />
+<div class="container mt-5">
+    <h2 class="text-center">Contacto</h2>
+    <div class="row">
+        <div class="col-md-6 text-center">
+            <h5>Dirección</h5>
+            <p><img src="~/img/icons/house-solid.svg" class="contact-icon" alt="Icono Dirección"> Calle 123, San Francisco, Santa Fe, Argentina</p>
+        </div>
+        <div class="col-md-6 text-center">
+            <h5>Contáctanos</h5>
+            <p><img src="~/img/icons/phone-solid.svg" class="contact-icon" alt="Icono Teléfono"> Tel: +54 341 123 4567</p>
+            <p><img src="~/img/icons/envelope-solid.svg" class="contact-icon" alt="Icono Email"> Email: contacto@delf.com</p>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-12 text-center">
+            <h5>Síguenos en Redes Sociales</h5>
+            <a href="https://www.facebook.com" class="text-dark mx-2" target="_blank">
+                <img src="~/img/icons/facebook.png" class="social-icon" alt="Icono Facebook">
+            </a>
+            <a href="https://www.instagram.com" class="text-dark mx-2" target="_blank">
+                <img src="~/img/icons/instagram.png" class="social-icon" alt="Icono Instagram">
+            </a>
+        </div>
+    </div>
 </div>

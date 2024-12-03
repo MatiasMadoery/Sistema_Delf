@@ -1,0 +1,74 @@
+﻿@model Delf_WebApp.Models.Articulo
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Editar</h1>
+<h4>Artículo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4 text-start">
+        @* Alinear todo a la izquierda *@
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Codigo" class="control-label"></label>
+                <input asp-for="Codigo" class="form-control" />
+                <span asp-validation-for="Codigo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descripcion" class="control-label"></label>
+                <input asp-for="Descripcion" class="form-control" />
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Precio" class="control-label"></label>
+                <input asp-for="Precio" class="form-control" />
+                <span asp-validation-for="Precio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Stock" class="control-label"></label>
+                <input asp-for="Stock" class="form-control" />
+                <span asp-validation-for="Stock" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoriaId" class="control-label"></label>
+                <select asp-for="CategoriaId" class="form-control" asp-items="ViewBag.CategoriaId"></select>
+                <span asp-validation-for="CategoriaId" class="text-danger"></span>
+            </div>
+            @* Mostrar imagen *@
+            <div class="form-group">
+                <label asp-for="NombreImagen" class="control-label"></label>
+                <input asp-for="NombreImagen" type="file" id="seleccionImg" class="form-control" />
+            </div>
+            <br />
+            <div class="form-group">
+                @if (!string.IsNullOrEmpty(Model.NombreImagen))
+                {
+                    <img src="~/img/images/@Model.NombreImagen" width="100" class="rounded" asp-append-version="true" alt="Imagen del Artículo" />
+                }
+                else
+                {
+                    <span>No hay imagen disponible</span>
+                }
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Actualizar articulo" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+<div class="mt-3">
+    <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="~/js/cargarFoto.js"></script>

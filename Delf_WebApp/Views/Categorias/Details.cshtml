@@ -1,0 +1,27 @@
+﻿@model Delf_WebApp.Models.Categoria
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Detalles de la Categoría</h1>
+
+<div>
+    <hr />
+    <br />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+    </dl>
+</div>
+<br />
+<div class="mt-3">
+
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Editar</a> |
+    <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+</div>
+

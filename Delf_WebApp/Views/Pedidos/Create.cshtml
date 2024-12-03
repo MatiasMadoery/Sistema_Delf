@@ -1,0 +1,70 @@
+﻿@model Delf_WebApp.Models.Pedido
+
+@{
+    ViewData["Title"] = "Crear nuevo pedido";
+}
+<h1>Nuevo pedido</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Fecha" class="control-label"></label>
+                <input asp-for="Fecha" class="form-control" type="date" />
+                <span asp-validation-for="Fecha" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="ClienteId" class="control-label"></label>
+                <select asp-for="ClienteId" class="form-control" asp-items="ViewBag.ClienteId"></select>
+                <span asp-validation-for="ClienteId" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label>Artículos y Cantidades</label>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Artículo</th>
+                            <th>Cantidad</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="articulos-container">
+                        <tr>
+                            <td>
+                                <select name="articuloIds" class="form-control articulo-select" asp-items="ViewBag.ArticuloId"></select>
+                            </td>
+                            <td>
+                                <input type="number" name="cantidades" class="form-control" />
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger remove-item">Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br />
+                <button type="button" class="btn btn-primary" id="add-item">Añadir Artículo</button>
+            </div>
+            <hr />
+            <div class="form-group">
+                <input type="submit" value="Crear nuevo pedido" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+<br />
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="~/js/cargarArticulos.js"></script>
+    <script src="~/js/seleccionArticulo.js"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+}

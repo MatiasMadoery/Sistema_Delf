@@ -1,0 +1,90 @@
+﻿@model Delf_WebApp.Models.Pedido
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Editar</h1>
+<h4>Pedido</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Numero" class="control-label"></label>
+                <input asp-for="Numero" class="form-control" readonly />
+                <span asp-validation-for="Numero" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fecha" class="control-label"></label>
+                <input asp-for="Fecha" class="form-control" type="date" />
+                <span asp-validation-for="Fecha" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClienteId" class="control-label"></label>
+                <select asp-for="ClienteId" class="form-control" asp-items="ViewBag.ClienteId"></select>
+                <span asp-validation-for="ClienteId" class="text-danger"></span>
+            </div>
+            <!-- Nueva sección para añadir y editar artículos y cantidades -->
+            <div class="form-group">
+                <label>Artículos y Cantidades</label>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Artículo</th>
+                            <th>Cantidad</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="articulos-container">
+                        @foreach (var articuloCantidad in Model.ArticulosCantidades!)
+                        {
+                            <tr>
+                                <td>
+                                    <select name="articuloIds" class="form-control" asp-items="ViewBag.ArticuloId" value="@articuloCantidad.ArticuloId"></select>
+                                </td>
+                                <td>
+                                    <input type="number" name="cantidades" class="form-control" value="@articuloCantidad.Cantidad" />
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger remove-item">Eliminar</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-primary" id="add-item">Añadir Artículo</button>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Actualizar pedido" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+<br />
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="~/js/cargarArticulos.js"></script>
+    <script src="~/js/seleccionArticulo.js"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+}
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
