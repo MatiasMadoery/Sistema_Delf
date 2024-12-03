@@ -1,0 +1,56 @@
+﻿body {
+    background-image: url("../img/imagesPage/fondo.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: center;
+}
+
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.3); /* Aumentar la transparencia ajustando el valor alfa (0.3 por ejemplo) */
+        z-index: -1; /* Imagen de fondo detrás de todo el contenido */
+    }
+
+.card-header {
+    color: #ffd800ff;
+}
+
+.btn {
+    background-color: #ffd800ff;
+}
+
+.container {
+    max-width: 100%;
+    padding: 5px;
+}
+
+
+@media (min-width: 576px) {
+    .container {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+}

@@ -4,51 +4,66 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Detalle</h1>
 
-<div>
-    <h4>Articulo</h4>
+<div class="text-start">
+    <h4>Artículo</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Codigo)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Codigo)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Descripcion)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Descripcion)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Precio)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Precio)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Stock)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Stock)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NombreImagen)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NombreImagen)
-        </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Categoria)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Categoria.Id)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Categoria!.Nombre)
+        </dd>
+
+        <dt class="col-sm-2">
+            Imagen
+        </dt>
+        <dd class="col-sm-10">
+            <br />
+            @if (!string.IsNullOrEmpty(Model.NombreImagen))
+            {
+                <img src="~/img/images/@Model.NombreImagen" width="200" class="rounded" asp-append-version="true" alt="Imagen del Artículo" />
+            }
+            else
+            {
+                <span>No hay imagen disponible</span>
+            }
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<hr />
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Editar</a> |
+    <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a> |
+    <a asp-action="Delete" asp-route-id="@Model?.Id" class="btn btn-danger">Eliminar</a>
 </div>

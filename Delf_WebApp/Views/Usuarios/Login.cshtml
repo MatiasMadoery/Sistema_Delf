@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Iniciar Sesión";
+}
+<head>
+    <link rel="stylesheet" href="~/css/login.css" />
+</head>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center bg-black">
+                    <h2>Iniciar Sesión</h2>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.Error != null)
+                    {
+                        <div class="alert alert-danger">
+                            @ViewBag.Error
+                        </div>
+                    }
+                    <form asp-action="Login" method="post">
+                        <div class="form-group mb-3">
+                            <label for="nombreUsuario" class="form-label">Nombre de Usuario</label>
+                            <input type="text" id="nombreUsuario" name="nombreUsuario" class="form-control" placeholder="Introduce tu nombre de usuario" required />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="contrasena" class="form-label">Contraseña</label>
+                            <input type="password" id="contrasena" name="contrasena" class="form-control" placeholder="Introduce tu contraseña" required />
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn">Iniciar Sesión</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
