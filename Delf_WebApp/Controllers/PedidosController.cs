@@ -24,7 +24,7 @@ namespace Delf_WebApp.Controllers
         public async Task<IActionResult> Index(string searchString, int pagina = 1, int tamanioPagina = 5)
         {
             // Obtener los clientes del pedido
-            var pedidos = from p in _context.Pedidos
+            var pedidos = from p in _context.Pedidos!
                     .Include(p => p.Cliente)
                           select p;
 
@@ -65,7 +65,7 @@ namespace Delf_WebApp.Controllers
                 return NotFound();
             }
 
-            var pedido = await _context.Pedidos
+            var pedido = await _context.Pedidos!
                 .Include(p => p.Cliente) // Incluir el cliente
                 .Include(p => p.ArticulosCantidades!) // Incluir los artículos asociados
                 .ThenInclude(ac => ac.Articulo)
@@ -83,10 +83,19 @@ namespace Delf_WebApp.Controllers
         // GET: Pedidos/Create
 
         [Authorize(Policy = "EsUsuario")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            // Obtener el nombre del usuario logeado
+            var usuarioLogeado = User.Identity?.Name;
+
+            // Obtener el Id del viajante asociado al usuario logeado
+            var viajanteId = await _context.Viajantes!
+                .Where(v => v.Nombre == usuarioLogeado)
+                .Select(v => v.Id)
+                .FirstOrDefaultAsync();
+
             // Generar el número de pedido aquí
-            var ultimoPedido = _context.Pedidos.OrderByDescending(p => p.Id).FirstOrDefault();
+            var ultimoPedido = _context.Pedidos!.OrderByDescending(p => p.Id).FirstOrDefault();
             string numeroPedido = ultimoPedido != null ? (int.Parse(ultimoPedido.Numero!) + 1).ToString("D6") : "000001";
 
             // Crear un nuevo pedido con el número generado
@@ -95,7 +104,11 @@ namespace Delf_WebApp.Controllers
                 Numero = numeroPedido
             };
 
-            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "NombreCompleto");
+            // Filtrar los clientes asociados al viajante
+            ViewData["ClienteId"] = new SelectList(
+                _context.Clientes!
+                    .Where(c => c.ViajanteId == viajanteId),
+                "Id", "NombreCompleto");
             ViewData["ArticuloId"] = new SelectList(_context.Articulos, "Id", "Descripcion");
             return View();
         }
@@ -107,7 +120,7 @@ namespace Delf_WebApp.Controllers
         [Authorize(Policy = "EsUsuario")]
         public IActionResult GetArticulos()
         {
-            var articulos = _context.Articulos.Select(a => new { a.Id, a.Descripcion }).ToList();
+            var articulos = _context.Articulos!.Select(a => new { a.Id, a.Descripcion }).ToList();
             return Json(articulos);
         }
 
@@ -121,13 +134,13 @@ namespace Delf_WebApp.Controllers
         [Authorize(Policy = "EsUsuario")]
 
         public async Task<IActionResult> Create([Bind("Id,Numero,Fecha,ClienteId")] Pedido pedido, int[] articuloIds, int[] cantidades)
-        {
+        {        
             if (ModelState.IsValid)
             {
                 //Numero de pedido auto numerico
                 //-----------------------------------------------------------------------------------------------
                 // Obtener el último pedido por número
-                var ultimoPedido = await _context.Pedidos
+                var ultimoPedido = await _context.Pedidos!
                     .OrderByDescending(p => p.Id)
                     .FirstOrDefaultAsync();
 
@@ -162,8 +175,8 @@ namespace Delf_WebApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            //Mostrar nombre de cliente
-            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "NombreCompleto", pedido.ClienteId);
+            
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "NombreCompleto");
             ViewData["ArticuloId"] = new SelectList(_context.Articulos, "Id", "Descripcion");
             return View(pedido);
         }
@@ -176,7 +189,7 @@ namespace Delf_WebApp.Controllers
                 return NotFound();
             }
 
-            var pedido = await _context.Pedidos
+            var pedido = await _context.Pedidos!
                     .Include(p => p.Cliente!)
                     .Include(p => p.ArticulosCantidades!)
                     .ThenInclude(ac => ac.Articulo)
@@ -210,8 +223,8 @@ namespace Delf_WebApp.Controllers
                     _context.Update(pedido);
                     await _context.SaveChangesAsync();
                     // Actualizar artículos
-                    var existingArticuloCantidades = _context.ArticuloCantidades.Where(ac => ac.PedidoId == id);
-                    _context.ArticuloCantidades.RemoveRange(existingArticuloCantidades);
+                    var existingArticuloCantidades = _context.ArticuloCantidades!.Where(ac => ac.PedidoId == id);
+                    _context.ArticuloCantidades!.RemoveRange(existingArticuloCantidades);
                     for (int i = 0; i < articuloIds.Length; i++)
                     {
                         var articuloCantidad = new ArticuloCantidad
@@ -251,7 +264,7 @@ namespace Delf_WebApp.Controllers
                 return NotFound();
             }
 
-            var pedido = await _context.Pedidos
+            var pedido = await _context.Pedidos!
                 .Include(p => p.Cliente)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (pedido == null)
@@ -267,7 +280,7 @@ namespace Delf_WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var pedido = await _context.Pedidos.FindAsync(id);
+            var pedido = await _context.Pedidos!.FindAsync(id);
             if (pedido != null)
             {
                 _context.Pedidos.Remove(pedido);
@@ -279,7 +292,7 @@ namespace Delf_WebApp.Controllers
 
         private bool PedidoExists(int id)
         {
-            return _context.Pedidos.Any(e => e.Id == id);
+            return _context.Pedidos!.Any(e => e.Id == id);
         }
     }
 }

@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
-
 namespace Delf_WebApp.Controllers
 {
     public class UsuariosController : Controller
@@ -33,7 +32,7 @@ namespace Delf_WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(string nombreUsuario, string contrasena)
         {
-            var usuario = _context.Usuarios.FirstOrDefault(u => u.NombreUsuario == nombreUsuario && u.Contrasena == contrasena);
+            var usuario = _context.Usuarios!.FirstOrDefault(u => u.NombreUsuario == nombreUsuario && u.Contrasena == contrasena);
             if (usuario != null)
             {
                 // Crear los claims (información del usuario)

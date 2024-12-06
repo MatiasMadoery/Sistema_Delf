@@ -19,6 +19,9 @@
 
 
         //Relacion de uno a muchos con viajantes
-        public ICollection<Cliente>? Clientes { get; set; }               
+        public ICollection<Cliente>? Clientes { get; set; }
+
+        //Mostrar nombre completo
+        public string NombreCompleto => $"{Nombre} {Apellido}";
     }
 }
