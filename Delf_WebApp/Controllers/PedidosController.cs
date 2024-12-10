@@ -173,11 +173,14 @@ namespace Delf_WebApp.Controllers
                 }
 
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                ViewData["MensajeExito"] = $"Pedido {pedido.Numero} creado correctamente.";
+                return View(new Pedido());
             }
             
             ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "NombreCompleto");
             ViewData["ArticuloId"] = new SelectList(_context.Articulos, "Id", "Descripcion");
+            ModelState.AddModelError("", "No se pudo generar el nuevo pedido");
             return View(pedido);
         }
 

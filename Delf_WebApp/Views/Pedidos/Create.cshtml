@@ -4,6 +4,13 @@
     ViewData["Title"] = "Crear nuevo pedido";
 }
 <h1>Nuevo pedido</h1>
+@if (ViewData["MensajeExito"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @ViewData["MensajeExito"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -51,7 +58,7 @@
             </div>
             <hr />
             <div class="form-group">
-                <input type="submit" value="Crear nuevo pedido" class="btn btn-success" />
+                <input type="submit" value="Crear pedido" class="btn btn-success" />
             </div>
         </form>
     </div>
