@@ -10,23 +10,23 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Delf_WebApp.Controllers
 {
-    [Authorize(Policy = "EsAdministrador")] // Solo los administradores podrán acceder a este controlador
-    public class CategoriasController : Controller
+    [Authorize(Policy = "EsAdministrador")]
+    public class UsuariosLoginController : Controller
     {
         private readonly AppDbContext _context;
 
-        public CategoriasController(AppDbContext context)
+        public UsuariosLoginController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: Categorias
+        // GET: UsuariosLogin
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categorias!.ToListAsync());
+            return View(await _context.Usuarios!.ToListAsync());
         }
 
-        // GET: Categorias/Details/5
+        // GET: UsuariosLogin/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,39 +34,39 @@ namespace Delf_WebApp.Controllers
                 return NotFound();
             }
 
-            var categoria = await _context.Categorias
+            var usuario = await _context.Usuarios!
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (categoria == null)
+            if (usuario == null)
             {
                 return NotFound();
             }
 
-            return View(categoria);
+            return View(usuario);
         }
 
-        // GET: Categorias/Create
+        // GET: UsuariosLogin/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Categorias/Create
+        // POST: UsuariosLogin/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre")] Categoria categoria)
+        public async Task<IActionResult> Create([Bind("Id,NombreUsuario,Contrasena,Rol")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(categoria);
+                _context.Add(usuario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(categoria);
+            return View(usuario);
         }
 
-        // GET: Categorias/Edit/5
+        // GET: UsuariosLogin/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -74,22 +74,22 @@ namespace Delf_WebApp.Controllers
                 return NotFound();
             }
 
-            var categoria = await _context.Categorias.FindAsync(id);
-            if (categoria == null)
+            var usuario = await _context.Usuarios!.FindAsync(id);
+            if (usuario == null)
             {
                 return NotFound();
             }
-            return View(categoria);
+            return View(usuario);
         }
 
-        // POST: Categorias/Edit/5
+        // POST: UsuariosLogin/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre")] Categoria categoria)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,NombreUsuario,Contrasena,Rol")] Usuario usuario)
         {
-            if (id != categoria.Id)
+            if (id != usuario.Id)
             {
                 return NotFound();
             }
@@ -98,12 +98,12 @@ namespace Delf_WebApp.Controllers
             {
                 try
                 {
-                    _context.Update(categoria);
+                    _context.Update(usuario);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoriaExists(categoria.Id))
+                    if (!UsuarioExists(usuario.Id))
                     {
                         return NotFound();
                     }
@@ -114,10 +114,10 @@ namespace Delf_WebApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(categoria);
+            return View(usuario);
         }
 
-        // GET: Categorias/Delete/5
+        // GET: UsuariosLogin/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -125,34 +125,34 @@ namespace Delf_WebApp.Controllers
                 return NotFound();
             }
 
-            var categoria = await _context.Categorias
+            var usuario = await _context.Usuarios!
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (categoria == null)
+            if (usuario == null)
             {
                 return NotFound();
             }
 
-            return View(categoria);
+            return View(usuario);
         }
 
-        // POST: Categorias/Delete/5
+        // POST: UsuariosLogin/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var categoria = await _context.Categorias.FindAsync(id);
-            if (categoria != null)
+            var usuario = await _context.Usuarios!.FindAsync(id);
+            if (usuario != null)
             {
-                _context.Categorias.Remove(categoria);
+                _context.Usuarios.Remove(usuario);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoriaExists(int id)
+        private bool UsuarioExists(int id)
         {
-            return _context.Categorias.Any(e => e.Id == id);
+            return _context.Usuarios!.Any(e => e.Id == id);
         }
     }
 }
