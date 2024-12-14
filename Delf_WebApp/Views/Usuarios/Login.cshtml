@@ -12,10 +12,10 @@
                     <h2>Iniciar Sesión</h2>
                 </div>
                 <div class="card-body">
-                    @if (ViewBag.Error != null)
+                    @if (ViewData["Error"] != null)
                     {
                         <div class="alert alert-danger">
-                            @ViewBag.Error
+                            @ViewData["Error"]
                         </div>
                     }
                     <form asp-action="Login" method="post">

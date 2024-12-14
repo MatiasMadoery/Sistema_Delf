@@ -30,7 +30,7 @@ namespace Delf_WebApp.Controllers
             var categorias = _context.Categorias;
             ViewData["CategoriaId"] = new SelectList(categorias, "Id", "Nombre");
 
-            var articulos = from a in _context.Articulos
+            var articulos = from a in _context.Articulos!
                             .Include(a => a.Categoria)
                             select a;
 
@@ -44,7 +44,7 @@ namespace Delf_WebApp.Controllers
                 articulos = articulos.Where(s => s.Descripcion!.Contains(searchString));
             }
 
-            // Obtener el total de clientes (para calcular las páginas)
+            // Obtener el total de articulos (para calcular las páginas)
             var totalArticulos = await articulos.CountAsync();
 
             // Aplicar paginación (omitir los registros anteriores y tomar solo los de la página actual)
@@ -69,7 +69,7 @@ namespace Delf_WebApp.Controllers
                 return NotFound();
             }
 
-            var articulo = await _context.Articulos
+            var articulo = await _context.Articulos!
                 .Include(a => a.Categoria)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (articulo == null)
@@ -140,7 +140,7 @@ namespace Delf_WebApp.Controllers
                 return NotFound();
             }
 
-            var articulo = await _context.Articulos.FindAsync(id);
+            var articulo = await _context.Articulos!.FindAsync(id);
             if (articulo == null)
             {
                 return NotFound();
@@ -231,7 +231,7 @@ namespace Delf_WebApp.Controllers
                 return NotFound();
             }
 
-            var articulo = await _context.Articulos
+            var articulo = await _context.Articulos!
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (articulo == null)
             {
@@ -246,7 +246,7 @@ namespace Delf_WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var articulo = await _context.Articulos.FindAsync(id);
+            var articulo = await _context.Articulos!.FindAsync(id);
             if (articulo != null)
             {
                 _context.Articulos.Remove(articulo);
@@ -258,7 +258,7 @@ namespace Delf_WebApp.Controllers
 
         private bool ArticuloExists(int id)
         {
-            return _context.Articulos.Any(e => e.Id == id);
+            return _context.Articulos!.Any(e => e.Id == id);
         }
     }
 }

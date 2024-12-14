@@ -13,6 +13,10 @@ builder.Services.AddDbContext<AppDbContext>(
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
+        //Para mitigar el riesgo de ataques de secuestro de sesiones y XSS (Cross-Site Scripting).
+        options.Cookie.HttpOnly = true;
+        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+
         options.LoginPath = "/Usuarios/Login"; // La ruta de login
         options.AccessDeniedPath = "/Usuarios/AccesoDenegado"; // Ruta si el acceso es denegado
     });

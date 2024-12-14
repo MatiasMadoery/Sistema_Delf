@@ -58,9 +58,12 @@ namespace Delf_WebApp.Controllers
                     return RedirectToAction("Index", "Home"); // Redirige a una acción de usuario
                 }
             }
-
-            // Si el login falla
-            ModelState.AddModelError("", "Usuario o contraseña incorrectos");
+            else
+            {
+                // Si el login falla
+                ModelState.AddModelError("", "Usuario o contraseña incorrectos");
+                ViewData["Error"] = "Usuario o Contraseña incorrectos!";
+            }           
             return View();
         }
 

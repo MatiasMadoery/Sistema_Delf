@@ -25,7 +25,7 @@ namespace Delf_WebApp.Controllers
         public async Task<IActionResult> Index(string searchString, int pagina = 1, int tamanioPagina = 5)
         {
             // Obtener los clientes con su respectivo viajante
-            var clientes = from c in _context.Clientes
+            var clientes = from c in _context.Clientes!
                            .Include(c => c.Viajante)
                            select c;
 
@@ -61,7 +61,7 @@ namespace Delf_WebApp.Controllers
                 return NotFound();
             }
 
-            var cliente = await _context.Clientes
+            var cliente = await _context.Clientes!
                 .Include(c => c.Viajante)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (cliente == null)
@@ -90,7 +90,7 @@ namespace Delf_WebApp.Controllers
             {
 
                 // Verificar que el viajante existe
-                var viajante = await _context.Viajantes.FindAsync(cliente.ViajanteId);
+                var viajante = await _context.Viajantes!.FindAsync(cliente.ViajanteId);
 
                 if (viajante == null)
                 {
@@ -115,7 +115,7 @@ namespace Delf_WebApp.Controllers
                 return NotFound();
             }
 
-            var cliente = await _context.Clientes.FindAsync(id);
+            var cliente = await _context.Clientes!.FindAsync(id);
             if (cliente == null)
             {
                 return NotFound();
@@ -140,7 +140,7 @@ namespace Delf_WebApp.Controllers
             {
                 try
                 {
-                    var viajante = await _context.Viajantes.FindAsync(cliente.ViajanteId);
+                    var viajante = await _context.Viajantes!.FindAsync(cliente.ViajanteId);
                     if (viajante == null)
                     {
                         ModelState.AddModelError("ViajanteId", "El viajante seleccionado no existe.");
@@ -176,7 +176,7 @@ namespace Delf_WebApp.Controllers
                 return NotFound();
             }
 
-            var cliente = await _context.Clientes
+            var cliente = await _context.Clientes!
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (cliente == null)
             {
@@ -191,7 +191,7 @@ namespace Delf_WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var cliente = await _context.Clientes.FindAsync(id);
+            var cliente = await _context.Clientes!.FindAsync(id);
             if (cliente != null)
             {
                 _context.Clientes.Remove(cliente);
@@ -203,7 +203,7 @@ namespace Delf_WebApp.Controllers
 
         private bool ClienteExists(int id)
         {
-            return _context.Clientes.Any(e => e.Id == id);
+            return _context.Clientes!.Any(e => e.Id == id);
         }
     }
 }
