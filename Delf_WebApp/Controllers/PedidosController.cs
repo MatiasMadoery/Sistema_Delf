@@ -77,6 +77,10 @@ namespace Delf_WebApp.Controllers
                 return NotFound();
             }
 
+            // Calcular el total del pedido
+            var total = pedido.ArticulosCantidades!.Sum(ac => ac.Cantidad * ac.Articulo!.Precio);
+            ViewBag.Total = total;
+
             return View(pedido);
         }
 
@@ -209,7 +213,8 @@ namespace Delf_WebApp.Controllers
 
         // POST: Pedidos/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.       
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Numero,Fecha,ClienteId")] Pedido pedido, int[] articuloIds, int[] cantidades)
@@ -225,9 +230,23 @@ namespace Delf_WebApp.Controllers
                 {
                     _context.Update(pedido);
                     await _context.SaveChangesAsync();
-                    // Actualizar artículos
-                    var existingArticuloCantidades = _context.ArticuloCantidades!.Where(ac => ac.PedidoId == id);
+
+                    // Obtener los artículos existentes
+                    var existingArticuloCantidades = await _context.ArticuloCantidades!
+                        .Where(ac => ac.PedidoId == id)
+                        .ToListAsync();
+
+                    // Desvincular las entidades existentes del contexto
+                    foreach (var existingArticuloCantidad in existingArticuloCantidades)
+                    {
+                        _context.Entry(existingArticuloCantidad).State = EntityState.Detached;
+                    }
+
+                    // Eliminar los artículos existentes
                     _context.ArticuloCantidades!.RemoveRange(existingArticuloCantidades);
+                    await _context.SaveChangesAsync();
+
+                    // Añadir los nuevos artículos
                     for (int i = 0; i < articuloIds.Length; i++)
                     {
                         var articuloCantidad = new ArticuloCantidad
@@ -236,7 +255,7 @@ namespace Delf_WebApp.Controllers
                             ArticuloId = articuloIds[i],
                             Cantidad = cantidades[i]
                         };
-                        _context.Add(articuloCantidad);
+                        _context.ArticuloCantidades.Add(articuloCantidad);
                     }
 
                     await _context.SaveChangesAsync();
@@ -258,6 +277,8 @@ namespace Delf_WebApp.Controllers
             ViewData["ArticuloId"] = new SelectList(_context.Articulos, "Id", "Descripcion");
             return View(pedido);
         }
+
+
 
         // GET: Pedidos/Delete/5
         public async Task<IActionResult> Delete(int? id)
