@@ -31,7 +31,7 @@ namespace Delf_WebApp.Controllers
             // Filtrar por el texto de búsqueda si se proporciona
             if (!String.IsNullOrEmpty(searchString))
             {
-                pedidos = pedidos.Where(p => p.Numero!.Contains(searchString));
+                pedidos = pedidos.Where(p => p.Numero!.Contains(searchString) || p.Cliente!.Nombre!.Contains(searchString) || p.Cliente!.Apellido!.Contains(searchString));
             }
 
             //Ordenar los pedidos por numero descendente

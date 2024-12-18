@@ -41,7 +41,7 @@ namespace Delf_WebApp.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                articulos = articulos.Where(s => s.Descripcion!.Contains(searchString));
+                articulos = articulos.Where(s => s.Descripcion!.Contains(searchString) || s.Codigo!.Contains(searchString));
             }
 
             // Obtener el total de articulos (para calcular las páginas)

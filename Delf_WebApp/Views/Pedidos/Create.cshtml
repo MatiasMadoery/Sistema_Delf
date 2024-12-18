@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Crear nuevo pedido";
 }
+
 <h1>Nuevo pedido</h1>
 @if (ViewData["MensajeExito"] != null)
 {
@@ -43,7 +44,7 @@
                         <tbody id="articulos-container">
                             <tr>
                                 <td>
-                                    <select name="articuloIds" class="form-control articulo-select" asp-items="ViewBag.ArticuloId" size="3"></select>
+                                    <select name="articuloIds" class="form-control articulo-select" asp-items="ViewBag.ArticuloId"></select>
                                 </td>
                                 <td>
                                     <input type="number" name="cantidades" class="form-control" min="1" max="999" />
@@ -72,6 +73,15 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     @* <script src="~/js/cargarArticulos.js"></script> *@
     <script src="~/js/seleccionArticulo.js"></script>
+
+    @*Estilo para el dropdown*@
+    <style>
+        .select2-dropdown { 
+            max-height: 110px;  
+            overflow-y: auto;
+        }
+    </style>
+
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
